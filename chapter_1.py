@@ -1,9 +1,9 @@
 import seaborn as sns
 import sklearn
 
-iris = sns.load_dataset('iris')
-iris_features = iris.drop('species', axis=1)
-iris_target = iris['species']
+#iris = sns.load_dataset('iris')
+#iris_features = iris.drop('species', axis=1)
+#iris_target = iris['species']
 
 def rescale_normalization(df):
     for column in df.columns:
