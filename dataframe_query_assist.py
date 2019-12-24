@@ -25,9 +25,6 @@ class ConfigureDataFrame:
     Includes functions to filter DataFrame columns to only include 'Hypothesis' and 'TestResult', 
     filter DataFrame 'TestResult' to losses only or wins only.
     """
-    def __init__(self):
-        pass
-    
     def query_df(self, df, *args, **kwargs):
         """
         Quickly query a DataFrame by passing paramters
@@ -156,6 +153,18 @@ class ConfigureDataFrame:
             return df  
 
     def select_columns(self, df, *args):
+        """
+        Quickly query a DataFrame by passing paramters
+
+        Paramters
+        ---------
+        df : Pandas DataFrame
+            The DataFrame to evaluate specify columns for
+
+        args : columns to return (and, or, between)
+            Takes input of the columns to return for the passed DataFrame. Columns require exact captilization and character input. 
+            An error will be raised if the column input value cannot be found in the passed DataFrame.        
+        """
         columns = list(args)
         invalid_columns = [column for column in columns if column not in df.columns]
         
@@ -174,15 +183,15 @@ class ConfigureDataFrame:
         return df
 
 
-
+#Example flow to utilize the DataFrameQueryAssist class and its methods
+#TIP! Methods are functions utilized within a class
 ds = DataSource(data_source)
-df = ds.create_df() #this is the excel output
-
+df = ds.create_df() 
 
 cdf = ConfigureDataFrame()
 df = cdf.select_columns(df, 'Hypothesis', 'TestResult', 'AnalysisLead')
 df = cdf.query_df(df, 'and', TestResult='==Win', AnalysisLead='==Michael Benton')
-#print(df)
-#df = cdf.query_df(df, 'and', TestResult='==Win', AnalysisLead='==Colton Brown')
+print(df)
+
 
 

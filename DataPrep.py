@@ -2,7 +2,6 @@ import seaborn as sns
 import sklearn
 from sklearn.preprocessing import LabelEncoder
 import pandas as pd
-import chapter_1 as c1
 
 titanic = sns.load_dataset('titanic')
 #titanic = pd.read_csv(r'C:\Users\cb049c\Desktop\titanic_data.csv')
@@ -168,17 +167,54 @@ class DataPreprocessing():
         df = df.reset_index(drop=True)
         return df
 
+class DataRescaling:
+    """
+    The DataRescaling class includes methods which rescale the data with through common rescaling methods.
+    """
+    def rescale_normalization(self, df):
+        """
+        Rescaling using normalization.
 
+        Equation (where i = the current value of x):
+        (xi - min_value(x)) / (max_value(x) - min_value(x))
+
+        Parameters:
+            df - the DataFrame to manipulate and return
+        """
+        for column in df.columns:
+            max_val = df[column].max()
+            min_val = df[column].min()
+
+            df[column] = df[column].apply(lambda x: ((x - min_val) / (max_val - min_val)))
+
+        return df
+
+    def rescale_standarization(self, df):
+        """
+        Rescaling using standardization .
+
+        Equation (where i = the current value of x):
+        (xi - mean(x)) / (std(x))
+        
+        Parameters:
+            df - the DataFrame to manipulate and return
+        """
+        for column in df.columns:
+            mean = df[column].mean()
+            std = df[column].std()
+
+            df[column] = df[column].apply(lambda x: ((x - mean) / (std)))
+
+#Example flow to utilize the DataPreprocessing and DataRescaling classes and their methods
 dp = DataPreprocessing()
+dr = DataRescaling()
 
 X = dp.remove_nulls(X, 15)
 X = dp.remove_numerical_outliers(X)
 X = dp.remove_string_outliers(X, percent_thres=9, output=True)
 X = dp.fit_transform_features(X)
-print(X)
-#
-#X = c1.rescale_normalization(X)
-#print(X)
 
+X = dr.rescale_normalization(X)
+print(X)
 #X = c1.rescale_normalization(X)
 #print(X)
