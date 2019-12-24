@@ -20,7 +20,7 @@ class DataSource:
         return df
         
 
-class ConfigureDataFrame:
+class DataFrameQueryAssist:
     """
     Includes functions to filter DataFrame columns to only include 'Hypothesis' and 'TestResult', 
     filter DataFrame 'TestResult' to losses only or wins only.
@@ -188,9 +188,9 @@ class ConfigureDataFrame:
 ds = DataSource(data_source)
 df = ds.create_df() 
 
-cdf = ConfigureDataFrame()
-df = cdf.select_columns(df, 'Hypothesis', 'TestResult', 'AnalysisLead')
-df = cdf.query_df(df, 'and', TestResult='==Win', AnalysisLead='==Michael Benton')
+dqa = DataFrameQueryAssist()
+df = dqa.select_columns(df, 'Hypothesis', 'TestResult', 'AnalysisLead')
+df = dqa.query_df(df, 'and', TestResult='==Win', AnalysisLead='==Michael Benton')
 print(df)
 
 
