@@ -190,7 +190,7 @@ df = ds.create_df()
 
 dqa = DataFrameQueryAssist()
 df = dqa.select_columns(df, 'Hypothesis', 'TestResult', 'AnalysisLead')
-df = dqa.query_df(df, 'and', TestResult='==Win', AnalysisLead='==Michael Benton')
+df = dqa.query_df(df, 'and', TestResult='!=Win', AnalysisLead='==Colton Brown')
 print(df)
 
 
