@@ -183,15 +183,15 @@ class DataFrameQueryAssist:
         return df
 
 
-#Example flow to utilize the DataFrameQueryAssist class and its methods
-#TIP! Methods are functions utilized within a class
-ds = DataSource(data_source)
-df = ds.create_df() 
-
-dqa = DataFrameQueryAssist()
-df = dqa.select_columns(df, 'Hypothesis', 'TestResult', 'AnalysisLead')
-df = dqa.query_df(df, 'and', TestResult='!=Win', AnalysisLead='==Colton Brown')
-print(df)
+##Example flow to utilize the DataFrameQueryAssist class and its methods
+##TIP! Methods are functions utilized within a class
+#ds = DataSource(data_source)
+#df = ds.create_df() 
+#
+#dqa = DataFrameQueryAssist()
+#df = dqa.select_columns(df, 'Hypothesis', 'TestResult', 'AnalysisLead')
+#df = dqa.query_df(df, 'and', TestResult='!=Win', AnalysisLead='==Colton Brown')
+#print(df)
 
 
 

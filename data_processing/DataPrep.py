@@ -3,9 +3,9 @@ import sklearn
 from sklearn.preprocessing import LabelEncoder
 import pandas as pd
 
-titanic = sns.load_dataset('titanic')
-#titanic = pd.read_csv(r'C:\Users\cb049c\Desktop\titanic_data.csv')
-#df = pd.DataFrame(titanic)
+#titanic = sns.load_dataset('titanic')
+titanic = pd.read_csv(r'C:\Users\cb049c\Desktop\titanic_data.csv')
+df = pd.DataFrame(titanic)
 
 X = titanic[['sex', 'age', 'fare', 'class', 'embark_town', 'alone']]
 y = titanic['survived']
@@ -181,13 +181,15 @@ class DataRescaling:
         Parameters:
             df - the DataFrame to manipulate and return
         """
-        for column in df.columns:
-            max_val = df[column].max()
-            min_val = df[column].min()
+        df_copy = df.copy()
 
-            df[column] = df[column].apply(lambda x: ((x - min_val) / (max_val - min_val)))
+        for column in df_copy.columns:
+            max_val = df_copy[column].max()
+            min_val = df_copy[column].min()
 
-        return df
+            df_copy[column] = df_copy[column].apply(lambda x: ((x - min_val) / (max_val - min_val)))
+
+        return df_copy
 
     def rescale_standarization(self, df):
         """
@@ -199,22 +201,26 @@ class DataRescaling:
         Parameters:
             df - the DataFrame to manipulate and return
         """
-        for column in df.columns:
-            mean = df[column].mean()
-            std = df[column].std()
+        df_copy = df.copy()
 
-            df[column] = df[column].apply(lambda x: ((x - mean) / (std)))
+        for column in df_copy.columns:
+            mean = df_copy[column].mean()
+            std = df_copy[column].std()
+
+            df_copy[column] = df_copy[column].apply(lambda x: ((x - mean) / (std)))
+        
+        return df_copy
 
 #Example flow to utilize the DataPreprocessing and DataRescaling classes and their methods
-dp = DataPreprocessing()
-dr = DataRescaling()
-
-X = dp.remove_nulls(X, 15)
-X = dp.remove_numerical_outliers(X)
-X = dp.remove_string_outliers(X, percent_thres=9, output=True)
-X = dp.fit_transform_features(X)
-
-X = dr.rescale_normalization(X)
-print(X)
+#dp = DataPreprocessing()
+#dr = DataRescaling()
+#
+#X = dp.remove_nulls(X, 15)
+#X = dp.remove_numerical_outliers(X)
+#X = dp.remove_string_outliers(X, percent_thres=9, output=True)
+#X = dp.fit_transform_features(X)
+#
+#X = dr.rescale_normalization(X)
+#print(X)
 #X = c1.rescale_normalization(X)
 #print(X)
